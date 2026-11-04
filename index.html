@@ -78,21 +78,56 @@
 
 <!-- ============================== MOTIVATION ============================== -->
 <section id="insight">
-  <h2>Similar images, different physics</h2>
-  <p class="text">A vision-only world model must infer how the scene will evolve from pixels alone. Two observations can look nearly identical while describing different physical states — and the same action then leads to different futures.</p>
-  <figure>
-    <div class="motivation">
-      <span></span>
-      <p class="cell-label">Scene A — block held in the jaws</p>
-      <p class="cell-label">Scene B — block at rest, farther back</p>
-      <span class="row-label">Before</span>
-      <div class="tile"><img src="static/img/motivation/state_a.png" alt="Scene A before lifting: block between the fingers"></div>
-      <div class="tile"><img src="static/img/motivation/state_b.png" alt="Scene B before lifting: block on the table behind the fingers"></div>
-      <span class="row-label">After the<br>same lift</span>
-      <div class="tile"><img src="static/img/motivation/lift_a.png" alt="Scene A after lifting: the block comes along"></div>
-      <div class="tile"><img src="static/img/motivation/lift_b.png" alt="Scene B after lifting: the block stays on the table"></div>
+  <h2>Similar pixels, different physics</h2>
+  <p class="watch"><button data-seek="19.13">▶ Watch this part of the video (0:19)</button></p>
+  <p class="text">A vision-only world model must predict how the scene will evolve from pixels alone. Two observations can look nearly identical to the model while describing different physical states, and the same action then leads to different futures.</p>
+  <figure class="ab" id="ab" data-step="0" data-fps="30" data-n-orbit="72" data-n-lift="53">
+    <div class="seg" role="group" aria-label="Step through the example">
+      <button data-ab-step="0" aria-pressed="true">1 · Model’s camera</button>
+      <button data-ab-step="1" aria-pressed="false">2 · Turn the view</button>
+      <button data-ab-step="2" aria-pressed="false">3 · Same lift action</button>
     </div>
-    <figcaption>The two observations differ by only 6.6/255 in RMS pixel value, yet under the same lift action the block comes along in A and stays in B. Grounding during training teaches the visual dynamics to separate them.</figcaption>
+    <p class="ab-say" aria-live="polite">From the model’s camera, the two scenes look almost identical.</p>
+    <div class="ab-grid">
+      <div class="ab-col" data-h="0.0,0.0,0.1,0.3,0.5,1.0,1.5,1.9,2.4,3.0,3.4,4.0,4.5,4.9,5.5,6.1,6.5,7.0,7.6,8.0,8.5,9.1,9.5,10.0,10.6,11.0,11.5,12.1,12.5,12.8,13.0,13.1,13.1,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2,13.2">
+        <p class="ab-label">Scene A <span class="ab-desc">block held in the jaws</span></p>
+        <div class="tile ab-view">
+          <video muted playsinline preload="auto" poster="static/img/ab/ab-a-0.jpg" aria-label="Scene A: block between the gripper fingers"><source src="static/video/ab-a.mp4" type="video/mp4"></video>
+          <span class="ab-tag">model’s camera direction</span>
+          <span class="ab-in"><img src="static/img/ab/ab-a-in.png" alt="Scene A as the model receives it, 224 by 224 pixels" width="224" height="224"><span>model input, 224 px</span></span>
+        </div>
+        <div class="phys">
+          <p class="phys-t">Physical state</p>
+          <dl>
+            <dt>Contact with gripper</dt><dd class="hot">yes</dd>
+            <dt>Block height</dt><dd><span data-height>0.0</span> cm</dd>
+          </dl>
+          <svg class="trace" viewBox="0 0 120 44" aria-hidden="true"><text x="118" y="7" text-anchor="end">height over the lift</text><line x1="2" y1="40" x2="118" y2="40"/><polyline points=""/></svg>
+        </div>
+      </div>
+      <div class="ab-mid">
+        <div class="ab-rms"><b>2.99</b><span>/255</span></div>
+        <p>RMS pixel difference in the model’s input, before the lift</p>
+        <p class="ab-lift"><span aria-hidden="true">↑</span> same lift action</p>
+      </div>
+      <div class="ab-col" data-h="0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0">
+        <p class="ab-label">Scene B <span class="ab-desc">block resting just behind</span></p>
+        <div class="tile ab-view">
+          <video muted playsinline preload="auto" poster="static/img/ab/ab-b-0.jpg" aria-label="Scene B: block on the table just behind the gripper fingers"><source src="static/video/ab-b.mp4" type="video/mp4"></video>
+          <span class="ab-tag">model’s camera direction</span>
+          <span class="ab-in"><img src="static/img/ab/ab-b-in.png" alt="Scene B as the model receives it, 224 by 224 pixels" width="224" height="224"><span>model input, 224 px</span></span>
+        </div>
+        <div class="phys">
+          <p class="phys-t">Physical state</p>
+          <dl>
+            <dt>Contact with gripper</dt><dd>no</dd>
+            <dt>Block height</dt><dd><span data-height>0.0</span> cm</dd>
+          </dl>
+          <svg class="trace" viewBox="0 0 120 44" aria-hidden="true"><text x="118" y="7" text-anchor="end">height over the lift</text><line x1="2" y1="40" x2="118" y2="40"/><polyline points=""/></svg>
+        </div>
+      </div>
+    </div>
+    <figcaption><b>Before the lift, the pixels barely differ, but the physical state already does.</b> In the 224 px image the model receives, the two scenes differ by 2.99/255 RMS; physically, the block touches the gripper in A and not in B. Under the same lift action, the block comes along in A (0 → 13.2 cm) and stays put in B. JEPA-<em class="x">x</em> uses such physical trajectories to guide training of the visual dynamics; at test time it sees only the image.</figcaption>
   </figure>
 
   <div class="text">
@@ -108,6 +143,7 @@
 <!-- ============================== METHOD ============================== -->
 <section id="method">
   <h2>Method</h2>
+  <p class="watch"><button data-seek="48.8">▶ Watch this part of the video (0:49)</button></p>
   <p class="text">For every visual trajectory, the simulator provides a synchronized trajectory of physical states. JEPA-<em class="x">x</em> treats the two as paired views of the same action-conditioned evolution.</p>
 
   <figure>
@@ -119,27 +155,77 @@
     <figcaption>One recorded trajectory, rendered from two camera views, and its physical configuration. <button id="views-toggle" class="text-btn">Play</button></figcaption>
   </figure>
 
+  <h3 class="text">Training: predict both futures from either view</h3>
   <figure>
-    <img class="paper-fig" src="static/img/method_balanced.png" alt="Method overview: baselines on the left; JEPA-x on the right with vision and physics branches feeding a shared predictor, each prediction matched to both visual and physical futures." width="2400">
-    <figcaption><b>Cross-predictive physical grounding.</b> Left: self-prediction and state-regression baselines. Right: a shared action-conditioned predictor <i>g</i><sub>ψ</sub> advances paired visual and physical histories; each prediction is matched to both future latents through within-modal and cross-modal losses. The physical branch (amber) is training-only.</figcaption>
+    <div class="diagram"><img src="static/img/method-train.webp" width="2000" height="744" loading="lazy" alt="Training diagram. The camera image passes through the visual encoder f-theta to z-t-o; the physical state (block, eraser and gripper with shape, size, pose and opening) passes through the physical encoder h-phi to z-t-s. One shared predictor g-psi, conditioned on action a-t, maps each latent to a prediction, p-o and p-s. A comparison box D matches each prediction to the encoded next camera image z-t+1-o and the encoded next physical state z-t+1-s: two within-modal and two cross-modal terms."></div>
+    <figcaption>The camera image and the physical state are encoded by <i>f</i><sub>θ</sub> and <i>h</i><sub>φ</sub>; one shared predictor <i>g</i><sub>ψ</sub> rolls either latent forward under the same action. <i>D</i> matches each prediction to <em>both</em> futures, the encoded next image and the encoded next physical state: solid boxes are within-modal terms, dashed boxes cross-modal.</figcaption>
   </figure>
 
   <div class="text">
     <p>With visual and physical latent histories <span class="tex">Z_t^{o}, Z_t^{s}</span> and action chunk <span class="tex">a_t</span>, the objective sums all four source–target pairs:</p>
     <div class="tex-block">\mathcal{L}_{\text{JEPA-}x} = \sum_{m,n\,\in\,\{o,s\}} \big\lVert g_\psi(Z_t^{m}, a_t) - z_{t+1}^{n} \big\rVert_2^2 \;+\; \beta\,\big[\Omega(z^{o}) + \Omega(z^{s})\big]</div>
-    <p>Within-modal terms keep self-prediction; cross-modal terms require a transition predicted from either history to reach the <em>same</em> future scene in both modalities. Sharing <span class="tex">g_\psi</span> encourages both views to expose a common transition rule. At deployment the physical encoder is discarded, leaving the visual encoder, predictor, and planner of the visual-only baseline.</p>
+    <p>Within-modal terms keep self-prediction; cross-modal terms require a transition predicted from either history to reach the <em>same</em> future scene in both modalities. Sharing <span class="tex">g_\psi</span> encourages both views to expose a common transition rule, which ties the visual latent to how the physical world actually evolves.</p>
   </div>
+
+  <h3 class="text">Deployment: plan from pixels</h3>
+  <figure>
+    <div class="diagram"><img src="static/img/method-deploy.webp" width="2000" height="811" loading="lazy" alt="Deployment diagram. The current camera image and the goal image both pass through the visual encoder f-theta, giving z-t and the goal latent z-g. Inside the planner, many imagined rollouts fan out from z-t; the highlighted one ends next to z-g. Planner steps: action sequences, g-psi, imagined outcomes, closest to z-g. The chosen actions go to the robot, which executes and then replans. Notes: no physical state; same architecture as the baseline; same planner and search budget."></div>
+    <figcaption>After training, the physical branch is removed. The planner samples action sequences, imagines their outcomes with <i>g</i><sub>ψ</sub>, and executes the one whose predicted outcome ends closest to the goal latent <i>z</i><sup>g</sup>, then replans from the next image. The deployed model needs no physical state and keeps the visual-only baseline’s architecture, planner, and search budget.</figcaption>
+  </figure>
+
+  <h3 class="text">Compared with self-prediction and state regression</h3>
+  <figure>
+    <img class="paper-fig" src="static/img/method_balanced.png" loading="lazy" alt="Method overview from the paper: baselines on the left; JEPA-x on the right with vision and physics branches feeding a shared predictor, each prediction matched to both visual and physical futures." width="2400">
+    <figcaption><b>Cross-predictive physical grounding.</b> Left: self-prediction and state-regression baselines. Right: a shared action-conditioned predictor <i>g</i><sub>ψ</sub> advances paired visual and physical histories; each prediction is matched to both future latents through within-modal and cross-modal losses. The physical branch (amber) is training-only.</figcaption>
+  </figure>
 
   <h3 class="text">A unified privileged-state interface</h3>
   <figure>
-    <img class="paper-fig" src="static/img/unified_representation.png" alt="Unified privileged-state interface: object tokens with SDF geometry, extents, rotation and position, plus end-effector and table tokens, pooled by masked self-attention and a learned query." width="2400">
+    <img class="paper-fig" src="static/img/unified_representation.png" loading="lazy" alt="Unified privileged-state interface: object tokens with SDF geometry, extents, rotation and position, plus end-effector and table tokens, pooled by masked self-attention and a learned query." width="2400">
     <figcaption>Every scene is described by up to six object tokens — SDF geometry, extents, rotation, position — plus end-effector and table tokens. Objects are represented by geometry rather than identity, so one physical encoder serves all 22 configurations without task labels.</figcaption>
   </figure>
+</section>
+
+<!-- ============================== RESULTS: PREDICTED OUTCOMES ============================== -->
+<section id="prediction">
+  <h2>Predicting support after release</h2>
+  <p class="watch"><button data-seek="94.85">▶ Watch this part of the video (1:35)</button></p>
+  <p class="text">From the same observation and identical expert actions, each model rolls out its own latent predictions; we decode object and end-effector positions and render them in the simulator.</p>
+  <figure>
+    <div class="scroll-x">
+      <div class="storyboard">
+        <span></span><span class="t">t<sub>0</sub></span><span class="t">t<sub>1</sub></span><span class="t">t<sub>2</sub></span><span class="t">t<sub>3</sub></span><span class="t">t<sub>4</sub></span>
+        <span class="rl blue">JEPA-<em class="x">x</em></span>
+        <img src="static/img/rollout/jepax_t0.webp" alt="JEPA-x t0" loading="lazy"><img src="static/img/rollout/jepax_t1.webp" alt="JEPA-x t1" loading="lazy"><img src="static/img/rollout/jepax_t2.webp" alt="JEPA-x t2" loading="lazy"><span class="hl"><img src="static/img/rollout/jepax_t3.webp" alt="JEPA-x t3: eraser on the block" loading="lazy"></span><span class="hl"><img src="static/img/rollout/jepax_t4.webp" alt="JEPA-x t4: eraser on the block" loading="lazy"></span>
+        <span class="rl">Ground truth</span>
+        <img src="static/img/rollout/gt_t0.webp" alt="Ground truth t0" loading="lazy"><img src="static/img/rollout/gt_t1.webp" alt="Ground truth t1" loading="lazy"><img src="static/img/rollout/gt_t2.webp" alt="Ground truth t2" loading="lazy"><img src="static/img/rollout/gt_t3.webp" alt="Ground truth t3" loading="lazy"><img src="static/img/rollout/gt_t4.webp" alt="Ground truth t4" loading="lazy">
+        <span class="rl muted">Visual</span>
+        <img src="static/img/rollout/visual_t0.webp" alt="Visual t0" loading="lazy"><img src="static/img/rollout/visual_t1.webp" alt="Visual t1" loading="lazy"><img src="static/img/rollout/visual_t2.webp" alt="Visual t2" loading="lazy"><img src="static/img/rollout/visual_t3.webp" alt="Visual t3: eraser inside the block" loading="lazy"><img src="static/img/rollout/visual_t4.webp" alt="Visual t4: eraser inside the block" loading="lazy">
+      </div>
+    </div>
+    <figcaption>At t<sub>3</sub>–t<sub>4</sub>, JEPA-<em class="x">x</em> keeps the released eraser on the block, matching ground truth; the visual baseline predicts it sinking into the block. These are decoded forecasts, not executions — but such errors can make a planner undervalue a correct action, consistent with the stacking gain from 58.7% to 90.7%.</figcaption>
+  </figure>
+</section>
+
+<!-- ============================== RESULTS: SAME SCENARIO ============================== -->
+<section id="pair">
+  <h2>Same start, same goal, same planner</h2>
+  <p class="watch"><button data-seek="114.03">▶ Watch this part of the video (1:54)</button></p>
+  <p class="text">In closed-loop control, both models start from the same state, with the same goal image, planner, and search budget. Only the training objective differs.</p>
+  <div class="seg" role="group" aria-label="Choose a scenario">
+    <button data-pair="stack" aria-pressed="true" data-note="The visual-only baseline drops the eraser onto the table; JEPA-x stacks it on the block, 0.4 cm from the goal pose.">Stacking · eraser on block</button>
+    <button data-pair="place" aria-pressed="false" data-note="The visual-only baseline leaves the block 41 cm from its target; JEPA-x places it 1.4 cm from the goal pose.">Placement · block to target</button>
+  </div>
+  <div class="pair-frame">
+    <video id="pair-video" muted playsinline loop controls preload="metadata" poster="static/img/pair-stack.jpg" src="static/video/pair-stack.mp4" aria-label="Stacking: visual-only baseline (left) and JEPA-x (right) from the same start"></video>
+  </div>
+  <p class="caption"><span id="pair-note">The visual-only baseline drops the eraser onto the table; JEPA-x stacks it on the block, 0.4 cm from the goal pose.</span> Closed-loop executions from the same evaluation scenario, planned from images and a goal image; the cyan overlay marks the goal pose and the readout shows the simulator’s physical state.</p>
 </section>
 
 <!-- ============================== RESULTS: CONTROL ============================== -->
 <section id="control">
   <h2>Grounding improves vision-based control</h2>
+  <p class="watch"><button data-seek="134.94">▶ Watch this part of the video (2:15)</button></p>
   <p class="text center">One model across 22 object–task configurations, with the same planner, action prior, and search budget for every method.</p>
 
   <div class="seg" role="group" aria-label="Choose a task">
@@ -161,25 +247,6 @@
   </figure>
 </section>
 
-<!-- ============================== RESULTS: PREDICTED OUTCOMES ============================== -->
-<section id="prediction">
-  <h2>Predicting support after release</h2>
-  <p class="text">From the same observation and identical expert actions, each model rolls out its own latent predictions; we decode object and end-effector positions and render them in the simulator.</p>
-  <figure>
-    <div class="scroll-x">
-      <div class="storyboard">
-        <span></span><span class="t">t<sub>0</sub></span><span class="t">t<sub>1</sub></span><span class="t">t<sub>2</sub></span><span class="t">t<sub>3</sub></span><span class="t">t<sub>4</sub></span>
-        <span class="rl blue">JEPA-<em class="x">x</em></span>
-        <img src="static/img/rollout/jepax_t0.webp" alt="JEPA-x t0" loading="lazy"><img src="static/img/rollout/jepax_t1.webp" alt="JEPA-x t1" loading="lazy"><img src="static/img/rollout/jepax_t2.webp" alt="JEPA-x t2" loading="lazy"><span class="hl"><img src="static/img/rollout/jepax_t3.webp" alt="JEPA-x t3: eraser on the block" loading="lazy"></span><span class="hl"><img src="static/img/rollout/jepax_t4.webp" alt="JEPA-x t4: eraser on the block" loading="lazy"></span>
-        <span class="rl">Ground truth</span>
-        <img src="static/img/rollout/gt_t0.webp" alt="Ground truth t0" loading="lazy"><img src="static/img/rollout/gt_t1.webp" alt="Ground truth t1" loading="lazy"><img src="static/img/rollout/gt_t2.webp" alt="Ground truth t2" loading="lazy"><img src="static/img/rollout/gt_t3.webp" alt="Ground truth t3" loading="lazy"><img src="static/img/rollout/gt_t4.webp" alt="Ground truth t4" loading="lazy">
-        <span class="rl muted">Visual</span>
-        <img src="static/img/rollout/visual_t0.webp" alt="Visual t0" loading="lazy"><img src="static/img/rollout/visual_t1.webp" alt="Visual t1" loading="lazy"><img src="static/img/rollout/visual_t2.webp" alt="Visual t2" loading="lazy"><img src="static/img/rollout/visual_t3.webp" alt="Visual t3: eraser inside the block" loading="lazy"><img src="static/img/rollout/visual_t4.webp" alt="Visual t4: eraser inside the block" loading="lazy">
-      </div>
-    </div>
-    <figcaption>At t<sub>3</sub>–t<sub>4</sub>, JEPA-<em class="x">x</em> keeps the released eraser on the block, matching ground truth; the visual baseline predicts it sinking into the block. These are decoded forecasts, not executions — but such errors can make a planner undervalue a correct action, consistent with the stacking gain from 58.7% to 90.7%.</figcaption>
-  </figure>
-</section>
 
 <!-- ============================== RESULTS: FORECASTABILITY ============================== -->
 <section id="forecast">

@@ -114,8 +114,6 @@ figcaption b { color: var(--ink); font-weight: 600; }
 .tile { border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
 .tile img, .tile video { width: 100%; }
 
-.motivation { display: grid; grid-template-columns: auto 1fr 1fr; gap: 10px 14px; align-items: center; max-width: 600px; margin: 0 auto; }
-.motivation .row-label { font-size: var(--fs-small); color: var(--muted); text-align: right; line-height: 1.4; }
 
 .props { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
 .prop { border-top: 2px solid var(--ink); padding-top: 10px; }
@@ -183,6 +181,52 @@ th small { display: block; font-weight: 400; color: var(--muted); }
 
 footer { margin-top: 64px; padding: 28px 0 40px; border-top: 1px solid var(--rule); font-size: var(--fs-small); color: var(--muted); text-align: center; }
 
+/* ---------- links into the overview video ---------- */
+.watch { text-align: center; margin: -10px 0 18px; font-size: var(--fs-small); }
+.watch button { font: inherit; color: var(--blue); background: none; border: 0; padding: 2px 0; cursor: pointer; }
+.watch button:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- similar pixels, different physics (stepper) ---------- */
+.ab .seg { margin-top: 8px; }
+.ab-say { text-align: center; color: var(--ink); font-weight: 500; margin: 0 auto 14px; min-height: 1.7em; }
+.ab-grid { display: grid; grid-template-columns: 1fr 112px 1fr; gap: 14px; max-width: 900px; margin: 0 auto; align-items: start; }
+.ab-label { font-size: var(--fs-small); font-weight: 600; color: var(--ink); margin: 0 0 6px; }
+.ab-desc { font-weight: 400; color: var(--muted); margin-left: 6px; transition: opacity .3s; }
+.ab[data-step="0"] .ab-desc { opacity: 0; }
+.ab-view { position: relative; aspect-ratio: 4 / 3; background: #8a8a8a; }
+.ab-view video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ab-tag { position: absolute; left: 8px; top: 8px; font-size: 12px; line-height: 1.4; color: #fff; background: rgba(18, 22, 27, .68); padding: 2px 8px; border-radius: 4px; }
+.ab-in { position: absolute; right: 8px; top: 8px; width: 30%; border: 2px solid #fff; border-radius: 4px; overflow: hidden; box-shadow: 0 3px 10px rgba(0, 0, 0, .25); background: #fff; transition: opacity .35s; }
+.ab-in img { display: block; width: 100%; height: auto; }
+.ab-in span { display: block; font-size: 10px; line-height: 1.5; text-align: center; color: var(--muted); }
+.ab:not([data-step="0"]) .ab-in { opacity: 0; }
+.ab-mid { align-self: center; text-align: center; font-size: var(--fs-small); color: var(--muted); line-height: 1.45; padding-top: 24px; }
+.ab-mid p { margin: 6px 0 0; }
+.ab-rms b { font: 600 var(--fs-h2)/1 var(--serif); color: var(--ink); }
+.ab-rms span { color: var(--muted); }
+.ab-lift { color: var(--ink); font-weight: 600; opacity: 0; transition: opacity .3s; margin-top: 18px !important; }
+.ab-lift span { display: block; font-size: 1.6rem; line-height: 1; }
+.ab[data-step="2"] .ab-lift { opacity: 1; }
+.phys { display: grid; grid-template-columns: 1fr 120px; gap: 4px 10px; align-items: end; margin-top: 8px; padding: 8px 12px 10px; background: #fbf1e8; border-radius: 4px; font-size: var(--fs-small); }
+.phys-t { grid-column: 1 / -1; margin: 0; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); }
+.phys dl { margin: 0; display: grid; grid-template-columns: auto auto; gap: 0 12px; justify-content: start; line-height: 1.6; }
+.phys dt { color: var(--text); }
+.phys dd { margin: 0; font-weight: 600; color: var(--amber); font-variant-numeric: tabular-nums; }
+.phys dd.hot { color: #fff; background: var(--amber); border-radius: 3px; padding: 0 6px; justify-self: start; align-self: start; }
+.trace { width: 120px; height: 44px; overflow: visible; opacity: 0; transition: opacity .3s; }
+.ab[data-step="2"] .trace { opacity: 1; }
+.trace text { font-size: 7px; letter-spacing: .06em; text-transform: uppercase; fill: var(--muted); }
+.trace line { stroke: #e3cdbb; stroke-width: 1; }
+.trace polyline { fill: none; stroke: var(--amber); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+
+/* ---------- method diagrams from the video ---------- */
+.diagram { background: #f6f5f1; border-radius: 6px; padding: 14px; }
+.diagram img { width: 100%; height: auto; }
+
+/* ---------- same scenario, two models ---------- */
+.pair-frame { max-width: var(--wide-w); margin: 0 auto; border-radius: 4px; overflow: hidden; }
+.pair-frame video { width: 100%; display: block; aspect-ratio: 1600 / 442; background: #fff; }
+
 /* ---------- responsive ---------- */
 @media (max-width: 760px) {
   :root { --fs-title: 1.75rem; --fs-h2: 1.375rem; --fs-body: 1rem; }
@@ -196,6 +240,19 @@ footer { margin-top: 64px; padding: 28px 0 40px; border-top: 1px solid var(--rul
   .tldr { padding: 20px; }
   .chapters .sep { display: none; }
   section { padding-top: 40px; }
+  .ab-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ab-mid { grid-column: 1 / -1; grid-row: 2; padding-top: 0; }
+  .ab-mid p { display: inline; margin-left: 6px; }
+  .ab-lift { display: block !important; margin: 4px 0 0 !important; }
+  .ab-lift span { display: inline; font-size: inherit; }
+  .phys { grid-template-columns: 1fr; }
+  .phys dl { grid-template-columns: 1fr auto; }
+  .trace { width: 100%; height: 32px; }
+  .phys { font-size: 13px; padding: 8px 10px; }
+  .ab-tag { top: auto; bottom: 6px; left: 6px; font-size: 10px; padding: 1px 6px; }
+  .ab-in { width: 40%; right: 6px; top: 6px; }
+  .ab-in span { font-size: 9px; }
+  .diagram { padding: 6px; }
 }
 
 /* ---------- math ---------- */
