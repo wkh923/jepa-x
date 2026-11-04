@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <link rel="stylesheet" href="static/css/main.css">
+  <link rel="stylesheet" href="static/css/main.css?v=6">
 </head>
 <body>
 
@@ -45,7 +45,7 @@
 <section id="video" style="border-top:0;margin-top:0;padding-top:40px">
   <div class="frame" style="max-width:900px;margin:0 auto">
     <video id="overview-video" controls playsinline preload="metadata" poster="static/img/overview-poster.jpg" aria-label="Narrated research overview">
-      <source src="static/video/overview.mp4" type="video/mp4">
+      <source src="static/video/overview.mp4?v=6" type="video/mp4">
       <track kind="captions" src="static/video/overview.en.vtt" srclang="en" label="English">
     </video>
   </div>
@@ -157,7 +157,7 @@
 
   <h3 class="text">Training: predict both futures from either view</h3>
   <figure>
-    <div class="diagram"><img src="static/img/method-train.webp" width="2000" height="744" loading="lazy" alt="Training diagram. The camera image passes through the visual encoder f-theta to z-t-o; the physical state (block, eraser and gripper with shape, size, pose and opening) passes through the physical encoder h-phi to z-t-s. One shared predictor g-psi, conditioned on action a-t, maps each latent to a prediction, p-o and p-s. A comparison box D matches each prediction to the encoded next camera image z-t+1-o and the encoded next physical state z-t+1-s: two within-modal and two cross-modal terms."></div>
+    <div class="diagram"><img src="static/img/method-train.webp?v=6" width="2000" height="744" loading="lazy" alt="Training diagram. The camera image passes through the visual encoder f-theta to z-t-o; the physical state (block, eraser and gripper with shape, size, pose and opening) passes through the physical encoder h-phi to z-t-s. One shared predictor g-psi, conditioned on action a-t, maps each latent to a prediction, p-o and p-s. A comparison box D matches each prediction to the encoded next camera image z-t+1-o and the encoded next physical state z-t+1-s: two within-modal and two cross-modal terms."></div>
     <figcaption>The camera image and the physical state are encoded by <i>f</i><sub>θ</sub> and <i>h</i><sub>φ</sub>; one shared predictor <i>g</i><sub>ψ</sub> rolls either latent forward under the same action. <i>D</i> matches each prediction to <em>both</em> futures, the encoded next image and the encoded next physical state: solid boxes are within-modal terms, dashed boxes cross-modal.</figcaption>
   </figure>
 
@@ -217,7 +217,7 @@
     <button data-pair="place" aria-pressed="false" data-note="The visual-only baseline leaves the block 41 cm from its target; JEPA-x places it 1.4 cm from the goal pose.">Placement · block to target</button>
   </div>
   <div class="pair-frame">
-    <video id="pair-video" muted playsinline loop controls preload="metadata" poster="static/img/pair-stack.jpg" src="static/video/pair-stack.mp4" aria-label="Stacking: visual-only baseline (left) and JEPA-x (right) from the same start"></video>
+    <video id="pair-video" muted playsinline loop controls preload="metadata" poster="static/img/pair-stack.jpg?v=6" src="static/video/pair-stack.mp4?v=6" aria-label="Stacking: visual-only baseline (left) and JEPA-x (right) from the same start"></video>
   </div>
   <p class="caption"><span id="pair-note">The visual-only baseline drops the eraser onto the table; JEPA-x stacks it on the block, 0.4 cm from the goal pose.</span> Closed-loop executions from the same evaluation scenario, planned from images and a goal image; the cyan overlay marks the goal pose and the readout shows the simulator’s physical state.</p>
 </section>
@@ -237,7 +237,7 @@
     <button data-demo="push" aria-pressed="false">Pushing</button>
   </div>
   <div class="frame text" style="max-width:820px">
-    <video id="demo-video" muted playsinline loop controls preload="metadata" poster="static/img/demo-stack.jpg" src="static/video/demo-stack.mp4" aria-label="Stacking demonstration"></video>
+    <video id="demo-video" muted playsinline loop controls preload="metadata" poster="static/img/demo-stack.jpg?v=6" src="static/video/demo-stack.mp4?v=6" aria-label="Stacking demonstration"></video>
   </div>
   <p class="caption">Successful JEPA-<em class="x">x</em> executions planned from images and a goal image. The inset follows the manipulated object; the cyan overlay marks the goal pose.</p>
 
@@ -980,6 +980,6 @@
     document.querySelectorAll('.tex-block').forEach(el => katex.render(el.textContent, el, { displayMode: true, throwOnError: false }));
   });
 </script>
-<script src="static/js/main.js"></script>
+<script src="static/js/main.js?v=6"></script>
 </body>
 </html>

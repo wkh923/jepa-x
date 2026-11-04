@@ -120,15 +120,15 @@
   const demo = document.querySelector('#demo-video');
   switcher(demo, 'data-demo', btn => {
     const k = btn.dataset.demo;
-    demo.poster = `static/img/demo-${k}.jpg`;
-    demo.src = `static/video/demo-${k}.mp4`;
+    demo.poster = `static/img/demo-${k}.jpg?v=6`;
+    demo.src = `static/video/demo-${k}.mp4?v=6`;
     demo.setAttribute('aria-label', `${btn.textContent} demonstration`);
   });
   const pair = document.querySelector('#pair-video');
   switcher(pair, 'data-pair', btn => {
     const k = btn.dataset.pair;
-    pair.poster = `static/img/pair-${k}.jpg`;
-    pair.src = `static/video/pair-${k}.mp4`;
+    pair.poster = `static/img/pair-${k}.jpg?v=6`;
+    pair.src = `static/video/pair-${k}.mp4?v=6`;
     pair.setAttribute('aria-label', `${btn.textContent}: visual-only baseline (left) and JEPA-x (right) from the same start`);
     document.querySelector('#pair-note').textContent = btn.dataset.note;
   });
