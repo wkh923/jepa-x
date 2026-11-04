@@ -15,92 +15,104 @@ We call it JEPA-x.
 00:00:19.892 --> 00:00:22.317
 Pixels alone can be ambiguous.
 
-00:00:22.442 --> 00:00:25.067
-These two scenes look almost identical.
+00:00:22.467 --> 00:00:26.592
+From the model's camera, these two scenes look almost identical.
 
-00:00:25.555 --> 00:00:28.330
-But in one, the block is held in the jaws.
+00:00:27.285 --> 00:00:28.290
+Turn the view:
 
-00:00:28.442 --> 00:00:31.055
+00:00:28.310 --> 00:00:30.872
+in one, the block is held in the jaws.
+
+00:00:30.985 --> 00:00:33.597
 In the other, it rests just behind them.
 
-00:00:31.585 --> 00:00:34.335
-Under the same lift, one block comes along.
+00:00:34.197 --> 00:00:37.335
+Under the same lift action, one block comes along.
 
-00:00:34.460 --> 00:00:35.873
+00:00:37.460 --> 00:00:38.872
 The other stays put.
 
-00:00:36.765 --> 00:00:40.503
-The physical state tells them apart, so we use it to guide training.
+00:00:39.800 --> 00:00:44.687
+Before the lift, the pixels barely differ, but the physical state already does.
 
-00:00:42.008 --> 00:00:45.083
+00:00:44.800 --> 00:00:47.887
+So we use physical trajectories to guide training.
+
+00:00:49.487 --> 00:00:52.562
 During training, each trajectory comes in two views:
 
-00:00:45.195 --> 00:00:49.133
+00:00:52.675 --> 00:00:56.612
 camera images, and the physical state of the objects and the gripper.
 
-00:00:49.810 --> 00:00:51.148
+00:00:57.290 --> 00:00:58.627
 Both are encoded,
 
-00:00:51.173 --> 00:00:55.285
+00:00:58.652 --> 00:01:02.765
 and one shared predictor rolls either view forward under the same action.
 
-00:00:55.928 --> 00:00:58.515
+00:01:03.407 --> 00:01:05.995
 Each prediction must match both futures:
 
-00:00:58.565 --> 00:01:00.828
+00:01:06.045 --> 00:01:08.308
 the visual one, and the physical one.
 
-00:01:01.550 --> 00:01:05.888
+00:01:09.030 --> 00:01:13.368
 This ties the visual latent to how the physical world actually evolves.
 
-00:01:06.898 --> 00:01:09.972
+00:01:14.378 --> 00:01:17.453
 After training, the physical branch is removed.
 
-00:01:10.123 --> 00:01:12.748
+00:01:17.603 --> 00:01:20.228
 The deployed model needs no physical state,
 
-00:01:12.797 --> 00:01:15.723
+00:01:20.278 --> 00:01:23.203
 and keeps the baseline's architecture and planner.
 
-00:01:17.517 --> 00:01:22.205
+00:01:24.298 --> 00:01:29.510
+To act, the planner samples action sequences, imagines their outcomes with the predictor,
+
+00:01:29.585 --> 00:01:33.135
+and executes the one that ends closest to the goal image.
+
+00:01:35.537 --> 00:01:40.225
 We compare JEPA-x with a visual-only baseline on the same stacking actions.
 
-00:01:22.757 --> 00:01:25.732
+00:01:40.777 --> 00:01:43.752
 JEPA-x correctly predicts the physical contact:
 
-00:01:26.232 --> 00:01:30.895
+00:01:44.252 --> 00:01:48.915
 after release, the eraser stays on the block, just like the real outcome.
 
-00:01:31.445 --> 00:01:34.907
+00:01:49.465 --> 00:01:52.927
 The visual-only baseline lets it sink into the block.
 
-00:01:36.697 --> 00:01:39.877
+00:01:54.717 --> 00:01:57.897
 In closed-loop control, both models start from the same state,
 
-00:01:39.897 --> 00:01:42.485
+00:01:57.917 --> 00:02:00.505
 with the same goal, planner, and search budget.
 
-00:01:43.097 --> 00:01:46.610
+00:02:01.117 --> 00:02:04.630
 The visual-only baseline drops the eraser onto the table,
 
-00:01:46.697 --> 00:01:50.060
+00:02:04.717 --> 00:02:08.080
 and leaves the block 41 cm from its target.
 
-00:01:50.655 --> 00:01:55.405
+00:02:08.675 --> 00:02:13.425
 JEPA-x stacks the eraser on the block, and places the block on target.
 
-00:01:57.470 --> 00:02:05.045
+00:02:15.490 --> 00:02:23.065
 Across six manipulation families, mean control success rises from 53.6% to 78.2%.
 
-00:02:05.945 --> 00:02:08.870
+00:02:23.965 --> 00:02:26.890
 One model, one planner, one search budget.
 
-00:02:08.982 --> 00:02:10.920
-And every family improves.
+00:02:27.002 --> 00:02:29.265
+And every task family improves.
 
-00:02:15.825 --> 00:02:16.863
+00:02:34.155 --> 00:02:35.192
 JEPA-x.
 
-00:02:17.300 --> 00:02:20.712
+00:02:35.630 --> 00:02:39.042
 Physical grounding during training, pixels at deployment.
