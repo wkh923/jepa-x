@@ -35,6 +35,7 @@
     <a class="btn" href="https://arxiv.org/abs/2608.24044">arXiv</a>
     <a class="btn" href="#video">Video</a>
     <span class="btn" aria-disabled="true" title="Code will be released with the camera-ready version">Code (soon)</span>
+    <a class="btn" href="static/pdf/jepax_corl2026_poster.pdf">Poster</a>
     <a class="btn" href="#citation">BibTeX</a>
   </nav>
 </header>
@@ -45,7 +46,7 @@
 <section id="video" style="border-top:0;margin-top:0;padding-top:40px">
   <div class="frame" style="max-width:900px;margin:0 auto">
     <video id="overview-video" controls playsinline preload="metadata" poster="static/img/overview-poster.jpg" aria-label="Narrated research overview">
-      <source src="static/video/overview.mp4?v=6" type="video/mp4">
+      <source src="static/video/overview.mp4?v=7" type="video/mp4">
       <track kind="captions" src="static/video/overview.en.vtt" srclang="en" label="English">
     </video>
   </div>
@@ -157,7 +158,7 @@
 
   <h3 class="text">Training: predict both futures from either view</h3>
   <figure>
-    <div class="diagram"><img src="static/img/method-train.webp?v=6" width="2000" height="744" loading="lazy" alt="Training diagram. The camera image passes through the visual encoder f-theta to z-t-o; the physical state (block, eraser and gripper with shape, size, pose and opening) passes through the physical encoder h-phi to z-t-s. One shared predictor g-psi, conditioned on action a-t, maps each latent to a prediction, p-o and p-s. A comparison box D matches each prediction to the encoded next camera image z-t+1-o and the encoded next physical state z-t+1-s: two within-modal and two cross-modal terms."></div>
+    <div class="diagram"><img src="static/img/method-train.webp?v=7" width="2000" height="763" loading="lazy" alt="Training diagram. The camera image passes through the visual encoder f-theta to z-t-o; the physical state (block, eraser and gripper with shape, size, pose and opening) passes through the physical encoder h-phi to z-t-s. One shared predictor g-psi, conditioned on action a-t, maps each latent to a prediction, p-o and p-s. A comparison box D matches each prediction to the encoded next camera image z-t+1-o and the encoded next physical state z-t+1-s: two within-modal and two cross-modal terms."></div>
     <figcaption>The camera image and the physical state are encoded by <i>f</i><sub>θ</sub> and <i>h</i><sub>φ</sub>; one shared predictor <i>g</i><sub>ψ</sub> rolls either latent forward under the same action. <i>D</i> matches each prediction to <em>both</em> futures, the encoded next image and the encoded next physical state: solid boxes are within-modal terms, dashed boxes cross-modal.</figcaption>
   </figure>
 
@@ -169,7 +170,7 @@
 
   <h3 class="text">Deployment: plan from pixels</h3>
   <figure>
-    <div class="diagram"><img src="static/img/method-deploy.webp" width="2000" height="811" loading="lazy" alt="Deployment diagram. The current camera image and the goal image both pass through the visual encoder f-theta, giving z-t and the goal latent z-g. Inside the planner, many imagined rollouts fan out from z-t; the highlighted one ends next to z-g. Planner steps: action sequences, g-psi, imagined outcomes, closest to z-g. The chosen actions go to the robot, which executes and then replans. Notes: no physical state; same architecture as the baseline; same planner and search budget."></div>
+    <div class="diagram"><img src="static/img/method-deploy.webp?v=7" width="2000" height="777" loading="lazy" alt="Deployment diagram. The current camera image and the goal image both pass through the visual encoder f-theta, giving z-t and the goal latent z-g. Inside the planner, many imagined rollouts fan out from z-t; the highlighted one ends next to z-g. Planner steps: action sequences, g-psi, imagined outcomes, closest to z-g. The chosen actions go to the robot, which executes and then replans. Notes: no physical state; same architecture as the baseline; same planner and search budget."></div>
     <figcaption>After training, the physical branch is removed. The planner samples action sequences, imagines their outcomes with <i>g</i><sub>ψ</sub>, and executes the one whose predicted outcome ends closest to the goal latent <i>z</i><sup>g</sup>, then replans from the next image. The deployed model needs no physical state and keeps the visual-only baseline’s architecture, planner, and search budget.</figcaption>
   </figure>
 
