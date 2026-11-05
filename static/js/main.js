@@ -15,22 +15,23 @@
   // Similar pixels, different physics: model's camera -> rotated view -> same lift action.
   const ab = document.querySelector('#ab');
   if (ab) {
-    const fps = +ab.dataset.fps, nO = +ab.dataset.nOrbit, nL = +ab.dataset.nLift;
+    const fps = +ab.dataset.fps, nZ = +ab.dataset.nZoom, nO = +ab.dataset.nOrbit, nL = +ab.dataset.nLift;
     const say = ['From the model’s camera, the two scenes look almost identical.',
-      'Turn the view: in A, the block is held in the jaws. In B, it rests just behind them.',
-      'Under the same lift action, one block comes along. The other stays put.'];
-    const tags = ['model’s camera direction', 'rotated view', 'rotated view'];
+      'Zoom in and rotate the view: in A, the can is held in the jaws. In B, it rests just behind them.',
+      'Under the same lift action, one object comes along. The other stays put.'];
+    const tags = ['model’s camera direction', 'zoomed in & rotated', 'zoomed in & rotated'];
     const btns = [...ab.querySelectorAll('[data-ab-step]')];
     const cols = [...ab.querySelectorAll('.ab-col')].map(col => ({
       v: col.querySelector('video'), tag: col.querySelector('.ab-tag'),
       h: col.querySelector('[data-height]'), line: col.querySelector('.trace polyline'),
       hs: col.dataset.h.split(',').map(Number),
     }));
+    const hMax = Math.max(1, ...cols.flatMap(c => c.hs));
     const ft = k => (k + 0.5) / fps;
     const lift = k => cols.forEach(c => {   // k = lift frame shown, -1 before the lift
       c.h.textContent = (k < 0 ? 0 : c.hs[k]).toFixed(1);
       c.line.setAttribute('points', c.hs.slice(0, k + 1)
-        .map((y, i) => `${(2 + 116 * i / (nL - 1)).toFixed(1)},${(40 - 26 * y / 13.2).toFixed(1)}`).join(' '));
+        .map((y, i) => `${(2 + 116 * i / (nL - 1)).toFixed(1)},${(40 - 26 * y / hMax).toFixed(1)}`).join(' '));
     });
     let raf = 0, timers = [], touched = false;
     const play = (from, to, onFrame) => {
@@ -54,8 +55,8 @@
       ab.querySelector('.ab-say').textContent = say[s];
       cols.forEach(c => c.tag.textContent = tags[s]);
       if (s === 0) { cancelAnimationFrame(raf); cols.forEach(c => { c.v.pause(); c.v.currentTime = ft(0); }); lift(-1); }
-      else if (s === 1) { lift(-1); play(0, nO - 1); }
-      else play(nO, nO + nL - 1, k => lift(k - nO));
+      else if (s === 1) { lift(-1); play(0, nZ + nO - 1); }
+      else play(nZ + nO, nZ + nO + nL - 1, k => lift(k - nZ - nO));
     };
     btns.forEach((b, i) => b.addEventListener('click', () => {
       touched = true; timers.forEach(clearTimeout); go(i);
@@ -65,7 +66,7 @@
     onVisible(ab, 0.6, v => {
       if (!v || seen || touched || reduced) return;
       seen = true;
-      timers = [setTimeout(() => go(1), 2600), setTimeout(() => go(2), 2600 + 4800)];
+      timers = [setTimeout(() => go(1), 2600), setTimeout(() => go(2), 2600 + 6800)];
     });
   }
 
